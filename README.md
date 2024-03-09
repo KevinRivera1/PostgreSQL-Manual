@@ -8,9 +8,8 @@ Este manual proporciona una guía paso a paso para aprender PostgreSQL, un siste
 2. [Instalación](#instalación)
 3. [Conceptos Básicos](#conceptos-básicos)
 4. [Operaciones Básicas](#operaciones-básicas)
-5. [Consultas de Datos](#consultas-de-datos)
-6. [Modificación de Tablas](#modificación-de-tablas)
-7. [Eliminación de Tablas](#eliminación-de-tablas)
+5. [Modificación de Tablas](#modificación-de-tablas)
+6. [Eliminación de Tablas](#eliminación-de-tablas)
 
 ## Introducción
 
@@ -137,3 +136,61 @@ DROP TABLE productocategoria CASCADE;
 DROP TABLE productos CASCADE;
 DROP TABLE servicios CASCADE;
 ```
+
+## Relacion de tablas uno auno
+
+```sql
+-- Crear tabla
+-- Crear la tabla persona
+CREATE TABLE persona (
+  id_persona SERIAL PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL,
+  apellido VARCHAR(50) NOT NULL,
+  edad INTEGER
+);
+
+-- Crear la tabla direccion
+CREATE TABLE direccion (
+  id_direccion SERIAL PRIMARY KEY,
+  calle VARCHAR(100) NOT NULL,
+  ciudad VARCHAR(50) NOT NULL,
+  codigo_postal VARCHAR(10) NOT NULL,
+  id_persona INTEGER UNIQUE,  -- Se añade la restricción UNIQUE para asegurar que cada dirección esté asociada a una sola persona
+  FOREIGN KEY (id_persona) REFERENCES persona(id_persona) ON DELETE CASCADE  -- Se establece la clave foránea con opción de eliminación en cascada
+);
+```
+
+### Explicación detallada de la Relación Uno a Uno
+
+En la definición de la tabla `direccion`, hemos establecido una restricción de clave foránea (**FOREIGN KEY**), que es una regla que asegura la consistencia de los datos entre dos tablas relacionadas en una base de datos relacional.
+
+- **Clave Foránea (FOREIGN KEY):** Esta restricción garantiza la integridad referencial entre dos tablas. En este caso, la clave foránea se ha aplicado a la columna `id_persona` en la tabla `direccion`.
+
+- **Referencia a la tabla `persona`:** La clave foránea en la columna `id_persona` de la tabla `direccion` está referenciando la columna `id_persona` en la tabla `persona`. Esto significa que los valores en la columna `id_persona` de la tabla `direccion` deben coincidir con los valores en la columna `id_persona` de la tabla `persona`.
+
+- **ON DELETE CASCADE:** Esto es una especificación adicional que hemos añadido a la restricción de clave foránea. Cuando se establece en `ON DELETE CASCADE`, indica que si se elimina una fila en la tabla `persona`, todas las filas relacionadas en la tabla `direccion` que contienen el mismo valor en la columna `id_persona` también se eliminarán automáticamente. Esta acción es útil para mantener la integridad referencial y evitar registros huérfanos en la base de datos.
+
+## Colaboración y Contribuciones
+
+¡Tu contribución es bienvenida para mejorar este manual! Si tienes sugerencias para agregar contenido adicional, corregir errores o mejorar la claridad de la información, ¡no dudes en participar!
+
+### Cómo Contribuir
+
+1. Haz un clone de este repositorio y clona tu copia localmente:
+
+```bash
+git clone https://github.com/TuUsuario/NombreDelRepositorio.git
+```
+
+2. Crea una nueva rama para tu contribución:
+
+```bash
+git checkout -b nueva-funcionalidad
+```
+
+3. Crea un Pull Request (PR) desde tu rama en GitHub.
+4. Describa detalladamente tus cambios en el PR y espera comentarios o revisiones.
+
+### Informar Problemas
+
+- Esta sección proporciona instrucciones claras sobre cómo contribuir al proyecto a través de `pull requests` en GitHub, así como cómo informar problemas o sugerencias a través de `issues`.
