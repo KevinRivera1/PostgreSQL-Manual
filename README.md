@@ -194,3 +194,5 @@ git checkout -b nueva-funcionalidad
 ### Informar Problemas
 
 - Esta sección proporciona instrucciones claras sobre cómo contribuir al proyecto a través de `pull requests` en GitHub, así como cómo informar problemas o sugerencias a través de `issues`.
+
+- Si encuentras un problema o tienes una sugerencia para mejorar el manual, por favor crea un `issue` en este repositorio.
